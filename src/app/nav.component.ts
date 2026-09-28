@@ -7,6 +7,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { map } from 'rxjs/operators';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -20,9 +21,9 @@ import { map } from 'rxjs/operators';
           [opened]="isHandset === false">
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
-          <a mat-list-item href="#">Link 1</a>
-          <a mat-list-item href="#">Link 2</a>
-          <a mat-list-item href="#">Link 3</a>
+          @for (item of navItems; track item.path) {
+            <a mat-list-item [routerLink]="item.path">{{ item.title }}</a>
+          }
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>
@@ -36,9 +37,11 @@ import { map } from 'rxjs/operators';
               <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
           }
-          <span>locale-testing</span>
+          <span>Locale and Timezone Testing</span>
         </mat-toolbar>
-        <!-- Add Content Here -->
+        <div class="sidenav-content">
+          <router-outlet/>
+        </div>
       </mat-sidenav-content>
     </mat-sidenav-container>
     
@@ -61,9 +64,15 @@ import { map } from 'rxjs/operators';
       top: 0;
       z-index: 1;
     }
+
+    .sidenav-content {
+      padding: 20px;
+    }
     
   `,
   imports: [
+    RouterLink,
+    RouterOutlet,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -76,4 +85,6 @@ export class NavComponent {
 
   readonly isHandset = toSignal(this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(map(result => result.matches)), { initialValue: false });
+
+  readonly navItems = inject(Router).config[0].children?.filter(route => route.path !== '').map(route => ({ path: route.path, title: route.title }));
 }
