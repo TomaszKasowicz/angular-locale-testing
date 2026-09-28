@@ -34,13 +34,13 @@ jobs:
           --base-href=/${{ github.event.repository.name }}/
           --deploy-url=/${{ github.event.repository.name }}/
 
-      - run: cp dist/apps/locale-testing/browser/index.html dist/apps/locale-testing/browser/404.html
+      - run: cp dist/locale-testing/browser/index.html dist/locale-testing/browser/404.html
 
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/apps/locale-testing/browser
+          path: dist/locale-testing/browser
 
   deploy:
     needs: build
