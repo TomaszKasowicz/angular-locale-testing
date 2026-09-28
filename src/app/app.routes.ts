@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { NavComponent } from './nav.component';
-import { LocalesComponent } from './components/locales';
+import { PipesWithLocalesComponent } from './components/pipes-with-locales';
+import { DatetimesComponent } from './components/datetimes';
 
 export const appRoutes: Route[] = [
   {
@@ -13,9 +14,14 @@ export const appRoutes: Route[] = [
         pathMatch: 'full'
       },
       {
-        path: 'locales',
-        component: LocalesComponent,
-        title: 'Locales'
+        path: 'pipes-with-locales',
+        component: PipesWithLocalesComponent,
+        title: 'Pipes with Locales'
+      },
+      {
+        path: 'datetimes',
+        component: DatetimesComponent,
+        title: 'Date Time with Timezones'
       }
     ]
   }
