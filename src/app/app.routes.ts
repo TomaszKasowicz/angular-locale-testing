@@ -10,7 +10,7 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: '',
-        redirectTo: 'locales',
+        redirectTo: 'datetimes',
         pathMatch: 'full'
       },
       {
